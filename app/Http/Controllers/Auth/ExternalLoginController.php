@@ -7,14 +7,14 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 
-class LoginController extends Controller
+class ExternalLoginController extends Controller
 {
     public function redirectToProvider(string $provider)
     {
         switch ($provider) {
             case "google":
-            case "twitter":
-            case "facebook":
+            case "discord":
+            case "github":
                 return Socialite::driver($provider)->redirect();
             default:
                 abort(400, "Invalid OAuth provider.");
@@ -25,8 +25,8 @@ class LoginController extends Controller
     {
         switch ($provider) {
             case "google":
-            case "twitter":
-            case "facebook":
+            case "discord":
+            case "github":
                 $providerResponse = Socialite::driver($provider)->user();
                 break;
             default:
@@ -41,6 +41,6 @@ class LoginController extends Controller
         auth()->login($user);
         session()->regenerate(true);
 
-        return redirect()->to('/');
+        return redirect()->route('home');
     }
 }

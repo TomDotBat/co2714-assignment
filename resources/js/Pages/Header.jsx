@@ -12,10 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Icon} from "@mui/material";
-import { usePage } from '@inertiajs/inertia-react';
+import {InertiaLink, usePage} from '@inertiajs/inertia-react';
+import {Inertia} from "@inertiajs/inertia";
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function Header(props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,6 +35,11 @@ export default function Header(props) {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const logOut = () => {
+        Inertia.get('/logout');
+        handleCloseUserMenu(null);
+    }
 
     const user = usePage().props.auth.user;
 
@@ -159,19 +164,31 @@ export default function Header(props) {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {settings.map((setting) => (
-                                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center">{setting}</Typography>
-                                        </MenuItem>
-                                    ))}
+                                    <MenuItem key="dashboard" onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">Dashboard</Typography>
+                                    </MenuItem>
+                                    <MenuItem key="logout" onClick={logOut}>
+                                        <Typography textAlign="center">Log Out</Typography>
+                                    </MenuItem>
                                 </Menu>
                             </Box>
                         ) : (
-                            <Button
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                Log In
-                            </Button>
+                            <>
+                                <Button
+                                    component={InertiaLink}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    href="/login"
+                                >
+                                    Log In
+                                </Button>
+                                <Button
+                                    component={InertiaLink}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    href="/register"
+                                >
+                                    Register
+                                </Button>
+                            </>
                         )
                     }
                 </Toolbar>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2aa3a0ba5e2f5048823a53c3cf7b0004",
+    "content-hash": "8c903ef9dae8cf38ff116796ae2ec0ba",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3071,17 +3071,17 @@
             "time": "2021-09-25T23:10:38+00:00"
         },
         {
-            "name": "socialiteproviders/facebook",
-            "version": "4.1.0",
+            "name": "socialiteproviders/discord",
+            "version": "4.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SocialiteProviders/Facebook.git",
-                "reference": "9b94a9334b5d0f61de8f5a20928d63d4d8f4e00d"
+                "url": "https://github.com/SocialiteProviders/Discord.git",
+                "reference": "c6eddeb07ace7473e82d02d4db852dfacf5ef574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Facebook/zipball/9b94a9334b5d0f61de8f5a20928d63d4d8f4e00d",
-                "reference": "9b94a9334b5d0f61de8f5a20928d63d4d8f4e00d",
+                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/c6eddeb07ace7473e82d02d4db852dfacf5ef574",
+                "reference": "c6eddeb07ace7473e82d02d4db852dfacf5ef574",
                 "shasum": ""
             },
             "require": {
@@ -3092,7 +3092,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "SocialiteProviders\\Facebook\\": ""
+                    "SocialiteProviders\\Discord\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3101,13 +3101,54 @@
             ],
             "authors": [
                 {
-                    "name": "Oleksandr Prypkhan (Alex Wells)",
-                    "email": "autaut03@googlemail.com"
+                    "name": "Christopher Eklund",
+                    "email": "eklundchristopher@gmail.com"
                 }
             ],
-            "description": "Facebook (facebook.com) OAuth2 Provider for Laravel Socialite",
+            "description": "Discord OAuth2 Provider for Laravel Socialite",
             "support": {
-                "source": "https://github.com/SocialiteProviders/Facebook/tree/4.1.0"
+                "source": "https://github.com/SocialiteProviders/Discord/tree/4.1.1"
+            },
+            "time": "2021-01-05T22:03:58+00:00"
+        },
+        {
+            "name": "socialiteproviders/github",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/GitHub.git",
+                "reference": "25fc481721d74b829b43bff3519e7103d5339e19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/GitHub/zipball/25fc481721d74b829b43bff3519e7103d5339e19",
+                "reference": "25fc481721d74b829b43bff3519e7103d5339e19",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2 || ^8.0",
+                "socialiteproviders/manager": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\GitHub\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Komarev",
+                    "email": "ell@cybercog.su"
+                }
+            ],
+            "description": "GitHub OAuth2 Provider for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/SocialiteProviders/GitHub/tree/4.1.0"
             },
             "time": "2020-12-01T23:10:59+00:00"
         },
@@ -3225,47 +3266,6 @@
                 "source": "https://github.com/socialiteproviders/manager"
             },
             "time": "2022-01-23T22:40:23+00:00"
-        },
-        {
-            "name": "socialiteproviders/twitter",
-            "version": "4.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Twitter.git",
-                "reference": "e5edf2b6e3f37e64be6488111629ed5e41e645ad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Twitter/zipball/e5edf2b6e3f37e64be6488111629ed5e41e645ad",
-                "reference": "e5edf2b6e3f37e64be6488111629ed5e41e645ad",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.2 || ^8.0",
-                "socialiteproviders/manager": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Twitter\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brian Faust",
-                    "email": "hello@brianfaust.de"
-                }
-            ],
-            "description": "Twitter OAuth1 Provider for Laravel Socialite",
-            "support": {
-                "source": "https://github.com/SocialiteProviders/Twitter/tree/4.1.1"
-            },
-            "time": "2021-01-29T05:41:11+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

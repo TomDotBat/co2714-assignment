@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\ExternalLoginController;
+use App\Http\Controllers\Auth\InternalLoginController;
+use App\Http\Controllers\Auth\InternalRegistrationController;
 use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia('/', 'Home');
+Route::inertia('/', 'Home')->name('home');
 
-Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])->name('login');
-Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])->name('login.callback');
+Route::middleware('guest')->group(function() {
+    Route::resource('/register', InternalRegistrationController::class)->only(['index', 'store']);
+    Route::resource('/login', InternalLoginController::class)->only(['index', 'store']);
 
-Route::get('/logout', LogoutController::class)->name('logout');
+    Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])->name('login.external');
+    Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])->name('login.external.callback');
+});
+
+Route::middleware('auth')->group(function() {
+    Route::get('/logout', LogoutController::class)->name('logout');
+});
