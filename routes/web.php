@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia('/', "Home");
+Route::inertia('/', 'Home');
+
 Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])->name('login');
 Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])->name('login.callback');
 
-Route::resource("test", \App\Http\Controllers\TestController::class);
+Route::get('/logout', LogoutController::class)->name('logout');
