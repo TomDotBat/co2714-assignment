@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ExternalLoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home');
 
-Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])->name('login');
-Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])->name('login.callback');
+Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])->name('login');
+Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])->name('login.callback');
 
 Route::get('/logout', LogoutController::class)->name('logout');
