@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ExternalLoginController;
 use App\Http\Controllers\Auth\InternalLoginController;
 use App\Http\Controllers\Auth\InternalRegistrationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::inertia('/', 'Home')->name('home');
+Route::get('', HomeController::class)->name('home');
+
+Route::inertia('/admin', 'Admin')->name('admin');
 
 Route::middleware('guest')->group(function() {
     Route::resource('/register', InternalRegistrationController::class)->only(['index', 'store']);
