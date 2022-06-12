@@ -18,11 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', HomeController::class)->name('home');
+Route::get('', HomeController::class)
+    ->name('home');
 
-Route::middleware('guest')->group(function() {
-    Route::resource('/register', InternalRegistrationController::class)->only(['index', 'store']);
-    Route::resource('/login', InternalLoginController::class)->only(['index', 'store']);
+Route::middleware('guest')->group(function () {
+    Route::resource('/register', InternalRegistrationController::class)
+        ->only(['index', 'store'])
+        ->name('index', 'register');
+    Route::resource('/login', InternalLoginController::class)
+        ->only(['index', 'store'])
+        ->name('index', 'login');
 
     Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])->name('login.external');
     Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])->name('login.external.callback');
