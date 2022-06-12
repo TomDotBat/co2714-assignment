@@ -36,7 +36,12 @@ export default function Header(props) {
         setAnchorElUser(null);
     };
 
-    const logOut = () => {
+    const handleOpenAdminDashboard = () => {
+        Inertia.get('/admin');
+        handleCloseUserMenu(null);
+    }
+
+    const handleLogOut = () => {
         Inertia.get('/logout');
         handleCloseUserMenu(null);
     }
@@ -167,12 +172,12 @@ export default function Header(props) {
                                     {
                                         user.admin && (
 
-                                            <MenuItem key="dashboard" onClick={handleCloseUserMenu}>
+                                            <MenuItem key="admin" onClick={handleOpenAdminDashboard}>
                                                 <Typography textAlign="center">Admin</Typography>
                                             </MenuItem>
                                         )
                                     }
-                                    <MenuItem key="logout" onClick={logOut}>
+                                    <MenuItem key="logout" onClick={handleLogOut}>
                                         <Typography textAlign="center">Log Out</Typography>
                                     </MenuItem>
                                 </Menu>
