@@ -164,9 +164,14 @@ export default function Header(props) {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    <MenuItem key="dashboard" onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">Dashboard</Typography>
-                                    </MenuItem>
+                                    {
+                                        user.admin && (
+
+                                            <MenuItem key="dashboard" onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center">Admin</Typography>
+                                            </MenuItem>
+                                        )
+                                    }
                                     <MenuItem key="logout" onClick={logOut}>
                                         <Typography textAlign="center">Log Out</Typography>
                                     </MenuItem>
