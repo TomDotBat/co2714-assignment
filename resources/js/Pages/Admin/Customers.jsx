@@ -57,13 +57,13 @@ function preventDefault(event) {
     event.preventDefault();
 }
 
-export default function Orders() {
+export default function Customers() {
     return (
         <Dashboard>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Title>Recent Orders</Title>
+                        <Title>Customers</Title>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>

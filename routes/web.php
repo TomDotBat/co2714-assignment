@@ -33,5 +33,8 @@ Route::middleware('auth')->group(function() {
 
     Route::middleware('admin')->group(function() {
         Route::inertia('/admin', 'Admin')->name('admin');
+        Route::inertia('/admin/customers', 'Admin/Customers')->name('customers');
+        Route::inertia('/admin/orders', 'Admin/Orders')->name('orders');
+        Route::inertia('/admin/products', 'Admin/Products')->name('products');
     });
 });
