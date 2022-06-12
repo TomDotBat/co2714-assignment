@@ -54,6 +54,7 @@ export default function Basket() {
             }}
             variant="permanent"
             anchor="right"
+            open={basketKeys.length !== 0}
         >
             <Toolbar>
                 Basket

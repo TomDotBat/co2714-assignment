@@ -40,7 +40,7 @@ export default function Product({card}) {
                     <Button size="small">{price(card.price)}</Button>
                     {!!user && (
                         <Button size="small" onClick={() => Basket.addItem(card)}>
-                            Buy
+                            Add to cart
                         </Button>
                     )}
                     {!user && (

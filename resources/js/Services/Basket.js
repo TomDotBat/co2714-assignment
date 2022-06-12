@@ -38,8 +38,20 @@ class Basket extends EventEmitter {
             return;
         }
 
-        this.items[productId].quantity = quantity;
-        this.emit('changed', this.items);
+        if (quantity === '') {
+            this.items[productId].quantity = quantity;
+            this.emit('changed', this.items);
+        } else if (quantity < 1) {
+            this.removeItem(productId);
+        } else {
+            let amount = parseInt(quantity);
+            if (isNaN(amount)) {
+                amount = 1;
+            }
+
+            this.items[productId].quantity = Math.min(amount, 99);
+            this.emit('changed', this.items);
+        }
     }
 }
 
