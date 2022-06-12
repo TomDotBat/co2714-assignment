@@ -71,46 +71,6 @@ export default function Home({products = {}}) {
                         </Stack>
                     </Container>
 
-                    <Modal
-                        open={open}
-                        onClose={toggleLoginModal}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            bgcolor: 'background.paper',
-                            border: '2px solid #000',
-                            boxShadow: 24,
-                            p: 4
-                        }}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                You're not logged in!
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{mt: 2}}>
-                                Log in to start making an order, or make an account if you don't have one already.
-                            </Typography>
-                            <Button
-                                component={InertiaLink}
-                                sx={{my: 2, color: 'white', display: 'block'}}
-                                href="/login"
-                            >
-                                Log In
-                            </Button>
-                            <Button
-                                component={InertiaLink}
-                                sx={{my: 2, color: 'white', display: 'block'}}
-                                href="/register"
-                            >
-                                Register
-                            </Button>
-                        </Box>
-                    </Modal>
-
                     <Basket/>
                 </Box>
             </main>
