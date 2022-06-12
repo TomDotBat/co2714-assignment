@@ -7,8 +7,6 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Product from "./Product";
 import Basket from "./Basket";
-import Button from "@mui/material/Button";
-import {InertiaLink} from "@inertiajs/inertia-react";
 
 const theme = createTheme();
 
@@ -20,9 +18,6 @@ const categories = [
 ];
 
 export default function Home({products = {}}) {
-    const [open, setOpen] = React.useState(false);
-    const toggleLoginModal = () => setOpen(!open);
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
