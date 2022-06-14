@@ -12,7 +12,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return inertia('Admin/Products');
+        $products = Product::get();
+
+        return inertia('Admin/Products', [
+            'products' => $products
+        ]);
     }
 
     public function store(StoreProductRequest $request)
@@ -33,5 +37,9 @@ class ProductController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function destroy(Product $product) {
+        $product->delete();
     }
 }

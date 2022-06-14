@@ -51,4 +51,10 @@ return [
         'client_secret' => env('GITHUB_CLIENT_SECRET'),
         'redirect' => env('APP_URL') . '/login/github/callback',
     ],
+
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+        'websocket' => env('STRIPE_WEBSOCKET'),
+        'key' => env('MIX_STRIPE_KEY'),
+    ],
 ];
