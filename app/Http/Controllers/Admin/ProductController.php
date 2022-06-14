@@ -49,6 +49,7 @@ class ProductController extends Controller
     private function updateProductCache(): void
     {
         try {
+            cache()->delete('products-by-type');
             cache()->remember('products-by-type', now()->addHour(), function () {
                 return Product::get()->groupBy('type');
             });
