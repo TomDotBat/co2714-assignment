@@ -9,7 +9,6 @@ import Button from "@mui/material/Button";
 import Dashboard from "./Dashboard";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import ProductDialog from "./ProductDialog";
 import {useState} from "react";
 import Container from "@mui/material/Container";
 import productTypeIcon from "../../Services/productTypeIcon";
@@ -19,12 +18,11 @@ import IconButton from "@mui/material/IconButton";
 import {DialogContentText, Stack} from "@mui/material";
 import DeleteConfirmationDialog from "../../Components/DeleteConfirmationDialog";
 import {Inertia} from "@inertiajs/inertia";
+import CreateProductDialog from "./CreateProductDialog";
 
 export default function Products({products = {}}) {
-    let [productDialogOpen, setProductDialogOpen] = useState(false);
-    let toggleCreateProductDialog = () => setProductDialogOpen(!productDialogOpen);
-
-    let [deleteConfirmationProduct, setDeleteConfirmationProduct] = useState(null);
+    const [productDialogOpen, setProductDialogOpen] = useState(false);
+    const [deleteConfirmationProduct, setDeleteConfirmationProduct] = useState(null);
 
     return (
         <>
@@ -34,7 +32,7 @@ export default function Products({products = {}}) {
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                             <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", mb: 2 }} disableGutters>
                                 <Title>Products</Title>
-                                <Button variant="contained" startIcon={<Add/>} onClick={toggleCreateProductDialog}>
+                                <Button variant="contained" startIcon={<Add/>} onClick={() => setProductDialogOpen(true)}>
                                     Create Product
                                 </Button>
                             </Container>
@@ -83,7 +81,11 @@ export default function Products({products = {}}) {
                 </Grid>
             </Dashboard>
 
-            <ProductDialog open={productDialogOpen} title="Create Product" submitText="Create"/>
+            <CreateProductDialog
+                open={productDialogOpen}
+                onSubmit={() => setProductDialogOpen(false)}
+                onCancel={() => setProductDialogOpen(false)}
+            />
 
             <DeleteConfirmationDialog
                 title="Confirm Product Deletion"
