@@ -1,4 +1,3 @@
-import Title from "./Title";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -6,19 +5,20 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {Add, Delete, Edit} from "@mui/icons-material";
 import Button from "@mui/material/Button";
-import Dashboard from "./Dashboard";
+import Dashboard from "../Dashboard";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {useState} from "react";
 import Container from "@mui/material/Container";
-import productTypeIcon from "../../Services/productTypeIcon";
+import productTypeIcon from "../../../Services/productTypeIcon";
 import Tooltip from "@mui/material/Tooltip";
-import price from "../../Services/price";
+import price from "../../../Services/price";
 import IconButton from "@mui/material/IconButton";
 import {DialogContentText, Stack} from "@mui/material";
-import DeleteConfirmationDialog from "../../Components/DeleteConfirmationDialog";
+import DeleteConfirmationDialog from "../../../Components/DeleteConfirmationDialog";
 import {Inertia} from "@inertiajs/inertia";
 import CreateProductDialog from "./CreateProductDialog";
+import Typography from "@mui/material/Typography";
 
 export default function Products({products = {}}) {
     const [productDialogOpen, setProductDialogOpen] = useState(false);
@@ -31,7 +31,9 @@ export default function Products({products = {}}) {
                     <Grid item xs={12}>
                         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                             <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", mb: 2 }} disableGutters>
-                                <Title>Products</Title>
+                                <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                                    Products
+                                </Typography>
                                 <Button variant="contained" startIcon={<Add/>} onClick={() => setProductDialogOpen(true)}>
                                     Create Product
                                 </Button>
@@ -96,7 +98,7 @@ export default function Products({products = {}}) {
                 }}
                 onCancel={() => setDeleteConfirmationProduct(null)}
             >
-                <DialogContentText id="alert-dialog-description">
+                <DialogContentText>
                     The product will no longer appear on the menu once deleted.
                     Previously placed orders will still keep this product.
                 </DialogContentText>

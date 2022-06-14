@@ -5,12 +5,10 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Title from './Title';
-import Dashboard from "./Dashboard";
-import Typography from "@mui/material/Typography";
+import Dashboard from "../Dashboard";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Products from "./Products";
+import Typography from "@mui/material/Typography";
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -63,7 +61,9 @@ export default function Orders() {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <Title>Recent Orders</Title>
+                        <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                            Orders
+                        </Typography>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
@@ -86,7 +86,7 @@ export default function Orders() {
                                 ))}
                             </TableBody>
                         </Table>
-                        <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+                        <Link color="primary" href="resources/js/Pages/Admin/Orders/Orders#" onClick={preventDefault} sx={{ mt: 3 }}>
                             See more orders
                         </Link>
                     </Paper>
