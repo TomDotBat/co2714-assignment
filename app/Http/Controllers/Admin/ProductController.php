@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -36,10 +36,22 @@ class ProductController extends Controller
             $image->storePubliclyAs('products', $product->id, ['disk' => 'public']);
         }
 
+        $this->updateProductCache();
+
         return redirect()->back();
     }
 
     public function destroy(Product $product) {
         $product->delete();
+        $this->updateProductCache();
+    }
+
+    private function updateProductCache(): void
+    {
+        try {
+            cache()->remember('products-by-type', now()->addHour(), function () {
+                return Product::get()->groupBy('type');
+            });
+        } catch (Exception $e) {}
     }
 }
