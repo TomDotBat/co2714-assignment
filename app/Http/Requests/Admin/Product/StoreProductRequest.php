@@ -28,10 +28,6 @@ class StoreProductRequest extends FormRequest
             'description' => 'required|string',
             'type' => 'required|in:pizza,side,dessert,drink',
             'price' => 'required|numeric',
-            'extra' => 'required|array',
-            'extra.toppings' => 'required_if:type,pizza|array',
-            'sizes' => 'required|array',
-            'allergens' => 'required|array',
             'image' => 'nullable|image|max:5000', // must be a image less than 5mb
         ];
     }

@@ -20,9 +20,6 @@ class ProductFactory extends Factory
             'title' => $this->faker->word,
             'description' => $this->faker->paragraph,
             'price' => $this->faker->randomFloat(2, 4, 30),
-            'extra' => [],
-            'sizes' => [],
-            'allergens' => [],
         ];
     }
 
@@ -31,11 +28,6 @@ class ProductFactory extends Factory
         return $this->state(function() {
             return [
                 'type' => 'pizza',
-                'extra' => [
-                    'toppings' => $this->randomArray('pizza', 'toppings', 1),
-                ],
-                'sizes' => $this->randomArray('pizza', 'sizes'),
-                'allergens' => $this->randomArray('pizza', 'allergens'),
             ];
         });
     }
@@ -45,7 +37,6 @@ class ProductFactory extends Factory
         return $this->state(function() {
             return [
                 'type' => 'side',
-                'allergens' => $this->randomArray('side', 'allergens'),
             ];
         });
     }
@@ -55,7 +46,6 @@ class ProductFactory extends Factory
         return $this->state(function() {
             return [
                 'type' => 'dessert',
-                'allergens' => $this->randomArray('dessert', 'allergens'),
             ];
         });
     }
@@ -67,14 +57,5 @@ class ProductFactory extends Factory
                 'type' => 'drink',
             ];
         });
-    }
-
-    protected function randomArray(string $type, $key, $min = 0): array
-    {
-        $data = config("products.$type.$key");
-        return $this->faker->randomElements(
-            $data,
-            $this->faker->randomFloat(0,$min, count($data))
-        );
     }
 }

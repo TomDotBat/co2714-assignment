@@ -19,9 +19,6 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->string('type');
             $table->float('price');
-            $table->json('extra');
-            $table->json('sizes');
-            $table->json('allergens');
             $table->timestamps();
             $table->softDeletes();
         });
