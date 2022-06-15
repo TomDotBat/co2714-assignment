@@ -26,7 +26,7 @@ export default function Home({products = {}}) {
             <Header
                 position="fixed"
                 sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
-                onBasketToggle={() => setUserBasketVisibility(!userBasketVisibility)}
+                handleBasketToggle={() => setUserBasketVisibility(!userBasketVisibility)}
             />
 
             <main style={{

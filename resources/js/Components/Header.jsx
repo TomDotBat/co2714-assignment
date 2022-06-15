@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Badge, Icon} from "@mui/material";
+import {Badge, Icon, Stack} from "@mui/material";
 import {InertiaLink, usePage} from '@inertiajs/inertia-react';
 import {Inertia} from "@inertiajs/inertia";
 import {ShoppingBasket} from "@mui/icons-material";
@@ -41,6 +41,7 @@ export default function Header(props) {
 
     const user = usePage().props.auth.user;
     const basketItemCount = Object.values(basket).length;
+    const {handleBasketToggle} = props;
 
     return (
         <AppBar position="static" {...props}>
@@ -91,53 +92,55 @@ export default function Header(props) {
                     {
                         user ? (
                             <Box sx={{ flexGrow: 0 }}>
-                                {
-                                    basketItemCount !== 0 ? (
-                                        <Tooltip title="Basket">
-                                            <IconButton color="inherit" onClick={props.onBasketToggle} sx={{ p: 0, marginRight: 3, }}>
-                                                <Badge badgeContent={basketItemCount} color="secondary">
-                                                    <ShoppingBasket/>
-                                                </Badge>
-                                            </IconButton>
-                                        </Tooltip>
-                                    ) : null
-                                }
-
-                                <Tooltip title="User Settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar>
-                                            {user.name[0] ?? ""}
-                                        </Avatar>
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu
-                                    sx={{ mt: '45px' }}
-                                    id="menu-appbar"
-                                    anchorEl={anchorElUser}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorElUser)}
-                                    onClose={handleCloseUserMenu}
-                                >
+                                <Stack direction="row" spacing={2}>
                                     {
-                                        user.admin && (
-
-                                            <MenuItem key="admin" onClick={handleOpenAdminDashboard}>
-                                                <Typography textAlign="center">Admin</Typography>
-                                            </MenuItem>
-                                        )
+                                        basketItemCount !== 0 ? (
+                                            <Tooltip title="Basket">
+                                                <IconButton color="inherit" onClick={handleBasketToggle} sx={{ p: 0 }}>
+                                                    <Badge badgeContent={basketItemCount} color="secondary">
+                                                        <ShoppingBasket/>
+                                                    </Badge>
+                                                </IconButton>
+                                            </Tooltip>
+                                        ) : null
                                     }
-                                    <MenuItem key="logout" onClick={handleLogOut}>
-                                        <Typography textAlign="center">Log Out</Typography>
-                                    </MenuItem>
-                                </Menu>
+
+                                    <Tooltip title="User Settings">
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            <Avatar>
+                                                {user.name[0] ?? ""}
+                                            </Avatar>
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        {
+                                            user.admin && (
+
+                                                <MenuItem key="admin" onClick={handleOpenAdminDashboard}>
+                                                    <Typography textAlign="center">Admin</Typography>
+                                                </MenuItem>
+                                            )
+                                        }
+                                        <MenuItem key="logout" onClick={handleLogOut}>
+                                            <Typography textAlign="center">Log Out</Typography>
+                                        </MenuItem>
+                                    </Menu>
+                                </Stack>
                             </Box>
                         ) : (
                             <>
