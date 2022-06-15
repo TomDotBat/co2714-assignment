@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreProductRequest;
 use App\Http\Requests\Admin\Product\UpdateProductRequest;
 use App\Models\Product;
-use Exception;
+use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
@@ -19,16 +19,19 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): RedirectResponse
     {
-        $product = Product::create($request);
-        $request->file('image')
-            ->storePubliclyAs('products', $product->id, ['disk' => 'public']);
+        $product = Product::create($request->validated());
+
+        if ($request->hasFile('image')) {
+            $request->file('image')
+                ->storePubliclyAs('products', $product->id, ['disk' => 'public']);
+        }
 
         return redirect()->back();
     }
 
-    public function update(Product $product, UpdateProductRequest $request)
+    public function update(Product $product, UpdateProductRequest $request): RedirectResponse
     {
         $product->update($request->validated());
 
@@ -36,23 +39,11 @@ class ProductController extends Controller
             $image->storePubliclyAs('products', $product->id, ['disk' => 'public']);
         }
 
-        $this->updateProductCache();
-
         return redirect()->back();
     }
 
-    public function destroy(Product $product) {
-        $product->delete();
-        $this->updateProductCache();
-    }
-
-    private function updateProductCache(): void
+    public function destroy(Product $product): void
     {
-        try {
-            cache()->delete('products-by-type');
-            cache()->remember('products-by-type', now()->addHour(), function () {
-                return Product::get()->groupBy('type');
-            });
-        } catch (Exception $e) {}
+        $product->delete();
     }
 }
