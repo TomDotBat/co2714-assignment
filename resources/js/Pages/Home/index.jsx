@@ -1,12 +1,14 @@
 import * as React from 'react';
 import Header from "../../Components/Header";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {CssBaseline, Grid, Modal, Stack} from "@mui/material";
+import {CssBaseline, Fab, Grid, Modal, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Product from "./Product";
 import Basket from "./Basket";
+import ScrollToTop from "../../Components/ScrollToTop";
+import {KeyboardArrowUp} from "@mui/icons-material";
 
 const theme = createTheme();
 
@@ -29,16 +31,14 @@ export default function Home({products = {}}) {
                 handleBasketToggle={() => setUserBasketVisibility(!userBasketVisibility)}
             />
 
-            <main style={{
-                marginTop: 68,
-            }}>
+            <main style={{marginTop: 68}}>
                 <Box
                     sx={{
                         pt: 4,
                         pb: 2,
                     }}
                 >
-                    <Container maxWidth="sm">
+                    <Container id="back-to-top-anchor" maxWidth="sm">
                         <Typography
                             component="h1"
                             variant="h2"
@@ -74,6 +74,12 @@ export default function Home({products = {}}) {
 
                     <Basket userVisibility={userBasketVisibility} />
                 </Box>
+
+                <ScrollToTop>
+                    <Fab size="small" aria-label="scroll back to top">
+                        <KeyboardArrowUp/>
+                    </Fab>
+                </ScrollToTop>
             </main>
         </ThemeProvider>
     );
