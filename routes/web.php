@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\ExternalLoginController;
 use App\Http\Controllers\Auth\InternalLoginController;
@@ -24,10 +25,10 @@ Route::get('', HomeController::class)
 
 Route::middleware('guest')->group(function () {
     Route::resource('/register', InternalRegistrationController::class)
-        ->only(['index', 'store'])
+        ->only('index', 'store')
         ->name('index', 'register');
     Route::resource('/login', InternalLoginController::class)
-        ->only(['index', 'store'])
+        ->only('index', 'store')
         ->name('index', 'login');
 
     Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])
@@ -43,8 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::inertia('/admin', 'Admin')
             ->name('admin');
-        Route::inertia('/admin/customers', 'Admin/Customers')
-            ->name('customers');
+        Route::resource('/admin/customers', CustomerController::class)
+            ->only('index', 'destroy')
+            ->name('index', 'admin.customers');
         Route::inertia('/admin/orders', 'Admin/Orders')
             ->name('orders');
         Route::resource('/admin/products', ProductController::class)
