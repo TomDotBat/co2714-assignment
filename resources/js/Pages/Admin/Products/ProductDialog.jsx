@@ -52,12 +52,21 @@ export default function ProductDialog(
         }
     };
 
+    const clearValidationErrors = () => {
+        for (let key in errors) {
+            delete errors[key];
+        }
+    }
+
     return (
         <Dialog
             scroll="paper"
             fullScreen={fullScreen}
             open={open}
-            onClose={onClose}
+            onClose={() => {
+                clearValidationErrors();
+                onClose();
+            }}
             aria-labelledby="responsive-dialog-title"
         >
             <DialogTitle id="responsive-dialog-title">
@@ -160,7 +169,7 @@ export default function ProductDialog(
 
             <DialogActions>
                 <Button onClick={() => {
-                    for (let key in errors) delete errors[key];
+                    clearValidationErrors();
                     onClose();
                 }}>
                     Cancel
