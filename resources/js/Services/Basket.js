@@ -10,13 +10,14 @@ class Basket extends EventEmitter {
 
     addItem(product) {
         if (this.items[product.id]) {
-            this.items[product.id].quantity++;
-        } else {
-            this.items[product.id] = {
-                quantity: 1,
-                product,
-            };
+            this.setQuantity(product.id, this.items[product.id].quantity + 1);
+            return;
         }
+
+        this.items[product.id] = {
+            quantity: 1,
+            product,
+        };
 
         this.emit('added', product);
         this.emit('changed', this.items);
