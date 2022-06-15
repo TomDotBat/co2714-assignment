@@ -19,9 +19,11 @@ import DeleteConfirmationDialog from "../../../Components/DeleteConfirmationDial
 import {Inertia} from "@inertiajs/inertia";
 import CreateProductDialog from "./CreateProductDialog";
 import Typography from "@mui/material/Typography";
+import UpdateProductDialog from "./UpdateProductDialog";
 
 export default function Products({products = {}}) {
-    const [productDialogOpen, setProductDialogOpen] = useState(false);
+    const [createProductDialogOpen, setCreateProductDialogOpen] = useState(false);
+    const [updatingProduct, setUpdatingProduct] = useState(null);
     const [deleteConfirmationProduct, setDeleteConfirmationProduct] = useState(null);
 
     return (
@@ -34,7 +36,7 @@ export default function Products({products = {}}) {
                                 <Typography component="h2" variant="h6" color="primary" gutterBottom>
                                     Products
                                 </Typography>
-                                <Button variant="contained" startIcon={<Add/>} onClick={() => setProductDialogOpen(true)}>
+                                <Button variant="contained" startIcon={<Add/>} onClick={() => setCreateProductDialogOpen(true)}>
                                     Create Product
                                 </Button>
                             </Container>
@@ -66,7 +68,7 @@ export default function Products({products = {}}) {
                                             <TableCell align="right">{price(product.price)}</TableCell>
                                             <TableCell>
                                                 <Stack direction="row" spacing={{ sm: 1 }}>
-                                                    <IconButton>
+                                                    <IconButton onClick={() => setUpdatingProduct(product)}>
                                                         <Edit/>
                                                     </IconButton>
                                                     <IconButton onClick={() => setDeleteConfirmationProduct(product)}>
@@ -84,9 +86,16 @@ export default function Products({products = {}}) {
             </Dashboard>
 
             <CreateProductDialog
-                open={productDialogOpen}
-                onSubmit={() => setProductDialogOpen(false)}
-                onCancel={() => setProductDialogOpen(false)}
+                open={createProductDialogOpen}
+                onSubmit={() => setCreateProductDialogOpen(false)}
+                onCancel={() => setCreateProductDialogOpen(false)}
+            />
+
+            <UpdateProductDialog
+                open={updatingProduct != null}
+                product={updatingProduct}
+                onSubmit={() => setUpdatingProduct(null)}
+                onCancel={() => setUpdatingProduct(null)}
             />
 
             <DeleteConfirmationDialog

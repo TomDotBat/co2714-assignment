@@ -3,25 +3,35 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
-    DialogTitle, FormControl, Input, InputLabel, Select, Stack, TextField,
+    DialogTitle,
+    FormControl,
+    InputLabel,
+    Select,
+    Stack,
+    TextField,
     useMediaQuery,
-    useTheme
+    useTheme,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-export default function ProductDialog(props) {
-    const [form, setForm] = useState({});
+export default function ProductDialog(
+    {
+        product, open, onCancel, onClose, onSubmit, submitText, title, children
+    }
+) {
+    const [form, setForm] = useState(product ?? {});
+
+    useEffect(() => {
+        setForm(product ?? {});
+    }, [product])
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     const createSetInput = (inputName) => {
         return (value) => {
-            console.log(value);
-
             if (value?.target) {
                 if (value.target.type === 'file') {
                     if (value.target.files !== 0) {
@@ -43,18 +53,17 @@ export default function ProductDialog(props) {
         <Dialog
             scroll="paper"
             fullScreen={fullScreen}
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-labelledby="responsive-dialog-title"
         >
             <DialogTitle id="responsive-dialog-title">
-                {props.title}
+                {title}
             </DialogTitle>
+
             <DialogContent>
-                <DialogContentText mb={2}>
-                    Let Google help apps determine location. This means sending anonymous
-                    location data to Google, even when no apps are running.
-                </DialogContentText>
+                {children}
+
                 <Stack
                     component="form"
                     spacing={3}
@@ -68,9 +77,10 @@ export default function ProductDialog(props) {
                         id="title"
                         autoComplete="title"
                         label="Title"
-                        value={form.title}
+                        value={form.title ?? ''}
                         onChange={createSetInput('title')}
                     />
+
                     <TextField
                         required
                         multiline
@@ -80,9 +90,10 @@ export default function ProductDialog(props) {
                         id="description"
                         autoComplete="description"
                         label="Description"
-                        value={form.description}
+                        value={form.description ?? ''}
                         onChange={createSetInput('description')}
                     />
+
                     <FormControl
                         variant="standard"
                     >
@@ -90,7 +101,8 @@ export default function ProductDialog(props) {
                         <Select
                             name="type"
                             id="type"
-                            value={form.type}
+                            value={form.type ?? ''}
+                            defaultValue=""
                             onChange={createSetInput('type')}
                             sx={{
                                 '& .MuiSelect-select': {
@@ -104,6 +116,7 @@ export default function ProductDialog(props) {
                             <MenuItem value="drink">Drink</MenuItem>
                         </Select>
                     </FormControl>
+
                     <TextField
                         required
                         variant="standard"
@@ -115,24 +128,27 @@ export default function ProductDialog(props) {
                             inputMode: 'numeric',
                             pattern: '[0-9.]*'
                         }}
-                        value={form.price}
+                        value={form.price ?? ''}
                         onChange={createSetInput('price')}
                     />
+
+
+                    <input accept="image/*" id="image" type="file" style={{display: "none"}}
+                           onChange={createSetInput('image')}/>
                     <label htmlFor="image">
-                        <Input accept="image/*" id="image" multiple type="file" sx={{display: "none"}}
-                               value={form.image} onChange={createSetInput('image')}/>
                         <Button variant="contained" component="span">
-                            Upload Image
+                            Upload Image {form.image && form.image.name}
                         </Button>
                     </label>
                 </Stack>
             </DialogContent>
+
             <DialogActions>
-                <Button onClick={props.onCancel}>
+                <Button onClick={onCancel}>
                     Cancel
                 </Button>
-                <Button onClick={() => props.onSubmit(form)}>
-                    {props.submitText}
+                <Button onClick={() => onSubmit(form)}>
+                    {submitText}
                 </Button>
             </DialogActions>
         </Dialog>

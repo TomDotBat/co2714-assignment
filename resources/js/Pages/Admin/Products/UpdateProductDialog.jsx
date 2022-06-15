@@ -2,9 +2,10 @@ import {Inertia} from "@inertiajs/inertia";
 import ProductDialog from "./ProductDialog";
 import {DialogContentText} from "@mui/material";
 
-export default function CreateProductDialog(props) {
-    const createProduct = (formData) => {
-        Inertia.post("/admin/products", {
+export default function UpdateProductDialog(props) {
+    const updateProduct = (formData) => {
+        Inertia.post("/admin/products/" + props.product.id, {
+            _method: 'PATCH',
             title: formData.title,
             description: formData.description,
             type: formData.type,
@@ -18,14 +19,15 @@ export default function CreateProductDialog(props) {
 
     return (
         <ProductDialog
-            title="Create Product"
-            submitText="Create"
+            title="Update Product"
+            submitText="Update"
             open={props.open}
-            onSubmit={createProduct}
+            onSubmit={updateProduct}
             onCancel={props.onCancel}
+            product={props.product}
         >
             <DialogContentText mb={2}>
-                Populate the following fields to create a product.
+                Modify the fields below to update this product.
             </DialogContentText>
         </ProductDialog>
     );
