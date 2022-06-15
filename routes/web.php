@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Auth\ExternalLoginController;
 use App\Http\Controllers\Auth\InternalLoginController;
@@ -47,8 +48,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('/admin/customers', CustomerController::class)
             ->only('index', 'destroy')
             ->name('index', 'admin.customers');
-        Route::inertia('/admin/orders', 'Admin/Orders')
-            ->name('orders');
+        Route::resource('/admin/orders', OrderController::class)
+            ->only('index')
+            ->name('index', 'orders');
         Route::resource('/admin/products', ProductController::class)
             ->only('index', 'store', 'update', 'destroy')
             ->name('index', 'admin.products');
