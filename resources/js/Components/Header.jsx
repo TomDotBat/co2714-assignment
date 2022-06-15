@@ -14,7 +14,7 @@ import {Badge, Icon, Stack} from "@mui/material";
 import {InertiaLink, usePage} from '@inertiajs/inertia-react';
 import {Inertia} from "@inertiajs/inertia";
 import {ShoppingBasket} from "@mui/icons-material";
-import {useBasket} from "../Services/Basket";
+import basketService, {useBasket} from "../Services/Basket";
 
 export default function Header(props) {
     const [basket] = useBasket();
@@ -40,7 +40,7 @@ export default function Header(props) {
     }
 
     const user = usePage().props.auth.user;
-    const basketItemCount = Object.values(basket).length;
+    const basketItemCount = basketService.itemCount;
     const {handleBasketToggle} = props;
 
     return (
