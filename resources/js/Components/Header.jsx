@@ -59,18 +59,13 @@ export default function Header(props) {
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 600,
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
                     >
                         {process.env.MIX_APP_NAME}
                     </Typography>
-                    <Icon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-                        <img src="/images/logo.svg" alt="Logo"/>
-                    </Icon>
                     <Typography
                         variant="h5"
                         noWrap
@@ -80,8 +75,7 @@ export default function Header(props) {
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 600,
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
