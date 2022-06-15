@@ -4,7 +4,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    FormControl,
+    FormControl, FormHelperText,
     InputLabel,
     Select,
     Stack,
@@ -15,6 +15,7 @@ import {
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import {useEffect, useState} from "react";
+import {usePage} from "@inertiajs/inertia-react";
 
 export default function ProductDialog(
     {
@@ -26,6 +27,8 @@ export default function ProductDialog(
     useEffect(() => {
         setForm(product ?? {});
     }, [product])
+
+    const {errors} = usePage().props;
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -79,6 +82,8 @@ export default function ProductDialog(
                         label="Title"
                         value={form.title ?? ''}
                         onChange={createSetInput('title')}
+                        error={!!errors['title']}
+                        helperText={errors['title']}
                     />
 
                     <TextField
@@ -92,6 +97,8 @@ export default function ProductDialog(
                         label="Description"
                         value={form.description ?? ''}
                         onChange={createSetInput('description')}
+                        error={!!errors['description']}
+                        helperText={errors['description']}
                     />
 
                     <FormControl
@@ -109,6 +116,8 @@ export default function ProductDialog(
                                     backgroundColor: 'transparent !important',
                                 }
                             }}
+                            error={!!errors['type']}
+                            helperText={errors['type']}
                         >
                             <MenuItem value="pizza">Pizza</MenuItem>
                             <MenuItem value="side">Side</MenuItem>
@@ -130,21 +139,30 @@ export default function ProductDialog(
                         }}
                         value={form.price ?? ''}
                         onChange={createSetInput('price')}
+                        error={!!errors['price']}
+                        helperText={errors['price']}
                     />
-
 
                     <input accept="image/*" id="image" type="file" style={{display: "none"}}
                            onChange={createSetInput('image')}/>
                     <label htmlFor="image">
-                        <Button variant="contained" component="span">
+                        <Button variant="contained" component="span" color={!!errors['image'] ? 'error' : 'primary'}>
                             Upload Image {form.image && form.image.name}
                         </Button>
+                        {
+                            !!errors['image'] ? (
+                                <FormHelperText error>{errors['image']}</FormHelperText>
+                            ) : null
+                        }
                     </label>
                 </Stack>
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={onClose}>
+                <Button onClick={() => {
+                    for (let key in errors) delete errors[key];
+                    onClose();
+                }}>
                     Cancel
                 </Button>
                 <Button onClick={() => onSubmit(form)}>

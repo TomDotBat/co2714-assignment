@@ -17,9 +17,8 @@ export default function UpdateProductDialog(
             image: formData.image
         }, {
             forceFormData: true,
+            onSuccess: () => onClose()
         });
-
-        onClose();
     }
 
     return (
