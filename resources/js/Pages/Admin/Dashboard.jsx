@@ -103,7 +103,7 @@ export default function Dashboard(props) {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            {process.env.MIX_APP_NAME} - Administration
+                            Admin Dashboard
                         </Typography>
                         <IconButton component={InertiaLink} color="inherit" href="/">
                             <Home />
