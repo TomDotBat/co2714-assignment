@@ -3,9 +3,14 @@ import {useEffect, useState} from "react";
 
 class Basket extends EventEmitter {
     _basket = {};
+    _itemCount = 0;
 
     get items() {
         return this._basket;
+    }
+
+    get itemCount() {
+        return this._itemCount;
     }
 
     addItem(product) {
@@ -19,6 +24,8 @@ class Basket extends EventEmitter {
             product,
         };
 
+        this._itemCount++;
+
         this.emit('added', product);
         this.emit('changed', this.items);
     }
@@ -28,7 +35,10 @@ class Basket extends EventEmitter {
             product = product.id;
         }
 
-        delete this.items[product];
+        if (this.items[product]) {
+            this._itemCount -= this.items[product].quantity;
+            delete this.items[product];
+        }
 
         this.emit('removed', product);
         this.emit('changed', this.items);
@@ -50,7 +60,12 @@ class Basket extends EventEmitter {
                 amount = 1;
             }
 
-            this.items[productId].quantity = Math.min(amount, 99);
+            const newQuantity = Math.min(amount, 99);
+            const product = this.items[productId];
+
+            this._itemCount += newQuantity - product.quantity;
+            product.quantity = newQuantity;
+
             this.emit('changed', this.items);
         }
     }
