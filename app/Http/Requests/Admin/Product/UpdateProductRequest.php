@@ -13,7 +13,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->admin;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'type' => 'required|in:pizza,side,dessert,drink',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|max:5000', // must be a image less than 5mb
         ];
     }
 }
