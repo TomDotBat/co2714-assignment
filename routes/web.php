@@ -30,17 +30,25 @@ Route::middleware('guest')->group(function () {
         ->only(['index', 'store'])
         ->name('index', 'login');
 
-    Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])->name('login.external');
-    Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])->name('login.external.callback');
+    Route::get('/login/{provider}', [ExternalLoginController::class, 'redirectToProvider'])
+        ->name('login.external');
+    Route::get('/login/{provider}/callback', [ExternalLoginController::class, 'handleProviderCallback'])
+        ->name('login.external.callback');
 });
 
-Route::middleware('auth')->group(function() {
-    Route::get('/logout', LogoutController::class)->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', LogoutController::class)
+        ->name('logout');
 
-    Route::middleware('admin')->group(function() {
-        Route::inertia('/admin', 'Admin')->name('admin');
-        Route::inertia('/admin/customers', 'Admin/Customers')->name('customers');
-        Route::inertia('/admin/orders', 'Admin/Orders')->name('orders');
-        Route::inertia('/admin/products', 'Admin/Products')->name('products');
+    Route::middleware('admin')->group(function () {
+        Route::inertia('/admin', 'Admin')
+            ->name('admin');
+        Route::inertia('/admin/customers', 'Admin/Customers')
+            ->name('customers');
+        Route::inertia('/admin/orders', 'Admin/Orders')
+            ->name('orders');
+        Route::resource('/admin/products', ProductController::class)
+            ->only('index', 'store', 'update', 'destroy')
+            ->name('index', 'admin.products');
     });
 });
