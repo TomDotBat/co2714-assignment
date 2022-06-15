@@ -68,12 +68,16 @@ export default function Products({products = {}}) {
                                             <TableCell align="right">{price(product.price)}</TableCell>
                                             <TableCell>
                                                 <Stack direction="row" spacing={{ sm: 1 }}>
-                                                    <IconButton onClick={() => setUpdatingProduct(product)}>
-                                                        <Edit/>
-                                                    </IconButton>
-                                                    <IconButton onClick={() => setDeleteConfirmationProduct(product)}>
-                                                        <Delete/>
-                                                    </IconButton>
+                                                    <Tooltip arrow placement="top" title="Edit">
+                                                        <IconButton onClick={() => setUpdatingProduct(product)}>
+                                                            <Edit/>
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip arrow placement="top" title="Delete">
+                                                        <IconButton onClick={() => setDeleteConfirmationProduct(product)}>
+                                                            <Delete/>
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 </Stack>
                                             </TableCell>
                                         </TableRow>
