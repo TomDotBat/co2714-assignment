@@ -18,7 +18,7 @@ import {useEffect, useState} from "react";
 
 export default function ProductDialog(
     {
-        product, open, onCancel, onClose, onSubmit, submitText, title, children
+        product, open, onClose, onSubmit, submitText, title, children
     }
 ) {
     const [form, setForm] = useState(product ?? {});
@@ -144,7 +144,7 @@ export default function ProductDialog(
             </DialogContent>
 
             <DialogActions>
-                <Button onClick={onCancel}>
+                <Button onClick={onClose}>
                     Cancel
                 </Button>
                 <Button onClick={() => onSubmit(form)}>

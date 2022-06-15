@@ -87,15 +87,13 @@ export default function Products({products = {}}) {
 
             <CreateProductDialog
                 open={createProductDialogOpen}
-                onSubmit={() => setCreateProductDialogOpen(false)}
-                onCancel={() => setCreateProductDialogOpen(false)}
+                onClose={() => setCreateProductDialogOpen(false)}
             />
 
             <UpdateProductDialog
                 open={updatingProduct != null}
                 product={updatingProduct}
-                onSubmit={() => setUpdatingProduct(null)}
-                onCancel={() => setUpdatingProduct(null)}
+                onClose={() => setUpdatingProduct(null)}
             />
 
             <DeleteConfirmationDialog

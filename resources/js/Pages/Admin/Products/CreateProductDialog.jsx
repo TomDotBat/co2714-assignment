@@ -2,7 +2,11 @@ import {Inertia} from "@inertiajs/inertia";
 import ProductDialog from "./ProductDialog";
 import {DialogContentText} from "@mui/material";
 
-export default function CreateProductDialog(props) {
+export default function CreateProductDialog(
+    {
+        open, onClose
+    }
+) {
     const createProduct = (formData) => {
         Inertia.post("/admin/products", {
             title: formData.title,
@@ -13,16 +17,17 @@ export default function CreateProductDialog(props) {
         }, {
             forceFormData: true,
         });
-        props.onSubmit(formData);
+
+        onClose();
     }
 
     return (
         <ProductDialog
             title="Create Product"
             submitText="Create"
-            open={props.open}
+            open={open}
             onSubmit={createProduct}
-            onCancel={props.onCancel}
+            onClose={onClose}
         >
             <DialogContentText mb={2}>
                 Populate the following fields to create a product.
