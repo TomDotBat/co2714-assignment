@@ -18,10 +18,16 @@ const categories = [
 ];
 
 export default function Home({products = {}}) {
+    const [userBasketVisibility, setUserBasketVisibility] = React.useState(true);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
-            <Header position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}/>
+            <Header
+                position="fixed"
+                sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
+                onBasketToggle={() => setUserBasketVisibility(!userBasketVisibility)}
+            />
 
             <main style={{
                 marginTop: 68,
@@ -66,7 +72,7 @@ export default function Home({products = {}}) {
                         </Stack>
                     </Container>
 
-                    <Basket/>
+                    <Basket userVisibility={userBasketVisibility} />
                 </Box>
             </main>
         </ThemeProvider>

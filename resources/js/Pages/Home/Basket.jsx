@@ -11,7 +11,7 @@ import productTypeIcon from "../../Services/productTypeIcon";
 
 const drawerWidth = 340;
 
-export default function Basket() {
+export default function Basket(props) {
     const [basket] = useBasket();
 
     const handleQuantityChange = (productId, quantity) => {
@@ -34,12 +34,12 @@ export default function Basket() {
                     boxSizing: 'border-box',
                     top: 'auto',
                     bottom: 0,
-                    height: 'calc(100% - 68px)',
+                    height: 'calc(100% - 64px)',
                 },
             }}
             variant="persistent"
             anchor="right"
-            open={basketKeys.length !== 0}
+            open={props.userVisibility && basketKeys.length !== 0}
         >
             <Toolbar>
                 Basket
