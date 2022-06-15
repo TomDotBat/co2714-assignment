@@ -22,6 +22,8 @@ export default function Basket() {
         BasketService.removeItem(product);
     }
 
+    const basketKeys = Object.keys(basket);
+
     return (
         <Drawer
             sx={{
@@ -35,7 +37,7 @@ export default function Basket() {
                     height: 'calc(100% - 68px)',
                 },
             }}
-            variant="permanent"
+            variant="persistent"
             anchor="right"
             open={basketKeys.length !== 0}
         >
@@ -46,12 +48,12 @@ export default function Basket() {
             <Divider/>
 
             <List>
-                {Object.entries(basket).map(([key, item]) => (
+                {basketKeys.map((key) => (
                     <ListItem key={key}>
                         <ListItemIcon sx={{
                             minWidth: 36
                         }}>
-                            {getProductIcon(item.product)}
+                            {productTypeIcon(basket[key].product)}
                         </ListItemIcon>
 
                         <TextField
@@ -64,14 +66,16 @@ export default function Basket() {
                             }}
                             size="small"
                             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
-                            value={item.quantity}
-                            onChange={(e) => handleQuantityChange(key, e.target.value ?? 1)}
+                            value={basket[key].quantity}
+                            onChange={(e) => {
+                                handleQuantityChange(key, e.target.value)
+                            }}
                             type="number"
                         />
 
-                        <ListItemText primary={item.product.title}/>
+                        <ListItemText primary={basket[key].product.title}/>
 
-                        <IconButton onClick={() => handleProductRemoval(item.product)}>
+                        <IconButton onClick={() => handleProductRemoval(basket[key].product)}>
                             <Delete/>
                         </IconButton>
                     </ListItem>
