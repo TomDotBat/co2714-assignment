@@ -1,9 +1,11 @@
+import { DateTime } from 'luxon';
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import price from '../../../Services/price';
 import Dashboard from "../Dashboard";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -33,8 +35,8 @@ export default function Orders({orders = {}}) {
                                     <TableRow key={order.id}>
                                         <TableCell>{order.id}</TableCell>
                                         <TableCell>{order.status}</TableCell>
-                                        <TableCell>{order.total}</TableCell>
-                                        <TableCell>{order.created_at}</TableCell>
+                                        <TableCell>{price(order.total)}</TableCell>
+                                        <TableCell>{DateTime.fromISO(order.created_at).toLocaleString(DateTime.DATETIME_MED)}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
