@@ -17,12 +17,12 @@ class CustomerController extends Controller
     }
 
 
-    public function destroy(User $user): void
+    public function destroy(User $customer): void
     {
-        if (request()->user()->id === $user->id) {
+        if (request()->user()->id === $customer->id) {
             abort(400, "You cannot delete yourself.");
         }
 
-        $user->delete();
+        $customer->delete();
     }
 }
