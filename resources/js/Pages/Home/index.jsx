@@ -50,7 +50,7 @@ export default function Home({products = {}}) {
                         </Typography>
                     </Container>
 
-                    <Container maxWidth="md">
+                    <Container maxWidth="lg">
                         <Stack spacing={8}>
                             {categories.map(category => (
                                 <Box key={category}>

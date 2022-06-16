@@ -11,7 +11,7 @@ export default function Product({card}) {
     const user = usePage().props.auth.user;
 
     return (
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={3}>
             <Card
                 sx={{height: '100%', display: 'flex', flexDirection: 'column'}}
             >
