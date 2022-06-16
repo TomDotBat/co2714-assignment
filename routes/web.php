@@ -7,7 +7,9 @@ use App\Http\Controllers\Auth\ExternalLoginController;
 use App\Http\Controllers\Auth\InternalLoginController;
 use App\Http\Controllers\Auth\InternalRegistrationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +41,12 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/checkout', CheckoutController::class)
+        ->name('checkout');
+
+    Route::get('/orders', UserOrderController::class)
+        ->name('orders');
+
     Route::get('/logout', LogoutController::class)
         ->name('logout');
 

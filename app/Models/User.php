@@ -25,7 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'admin'
+        'admin',
     ];
 
     /**
@@ -45,7 +45,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'admin' => 'boolean',
-        'password' => Hash::class
+        'admin'             => 'boolean',
+        'password'          => Hash::class,
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
