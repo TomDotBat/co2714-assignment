@@ -16,9 +16,7 @@ import {Inertia} from "@inertiajs/inertia";
 import {ShoppingBasket} from "@mui/icons-material";
 import basketService, {useBasket} from "../Services/Basket";
 
-export default function Header(props) {
-    const [basket] = useBasket();
-
+export default function Header({ handleBasketToggle = () => {}, ...props }) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -28,6 +26,11 @@ export default function Header(props) {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleOpenOrders = () => {
+        Inertia.get('/orders');
+        handleCloseUserMenu(null);
+    }
 
     const handleOpenAdminDashboard = () => {
         Inertia.get('/admin');
@@ -41,7 +44,6 @@ export default function Header(props) {
 
     const user = usePage().props.auth.user;
     const basketItemCount = basketService.itemCount;
-    const {handleBasketToggle} = props;
 
     return (
         <AppBar position="static" {...props}>
@@ -99,7 +101,7 @@ export default function Header(props) {
                                         ) : null
                                     }
 
-                                    <Tooltip title="User Settings">
+                                    <Tooltip title="Profile">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                             <Avatar>
                                                 {user.name[0] ?? ""}
@@ -124,12 +126,14 @@ export default function Header(props) {
                                     >
                                         {
                                             user.admin && (
-
                                                 <MenuItem key="admin" onClick={handleOpenAdminDashboard}>
                                                     <Typography textAlign="center">Admin</Typography>
                                                 </MenuItem>
                                             )
                                         }
+                                        <MenuItem key="orders" onClick={handleOpenOrders}>
+                                            <Typography textAlign="center">Orders</Typography>
+                                        </MenuItem>
                                         <MenuItem key="logout" onClick={handleLogOut}>
                                             <Typography textAlign="center">Log Out</Typography>
                                         </MenuItem>
