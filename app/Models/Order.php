@@ -14,10 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Order extends Model
 {
-    use HasFactory, SoftDeletes, Uuid;
+    use SoftDeletes, Uuid;
 
     protected $fillable = [
-        'status', 'total',
+        'status', 'total', 'stripe_checkout_session_id',
     ];
 
     public function user(): BelongsTo

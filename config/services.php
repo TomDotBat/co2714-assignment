@@ -54,7 +54,7 @@ return [
 
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
-        'websocket' => env('STRIPE_WEBSOCKET'),
+        'webhook' => env('STRIPE_WEBHOOK'),
         'key' => env('MIX_STRIPE_KEY'),
     ],
 ];

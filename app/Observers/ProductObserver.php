@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Product;
 use App\Traits\UsesStripe;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 use Psr\SimpleCache\InvalidArgumentException;
 use Stripe\Exception\ApiErrorException;
 use Stripe\Price;
@@ -12,6 +13,13 @@ use Stripe\Price;
 class ProductObserver
 {
     use UsesStripe;
+
+    /**
+     * Handle events after all transactions are committed.
+     *
+     * @var bool
+     */
+    public $afterCommit = true;
 
     /**
      * @throws ApiErrorException

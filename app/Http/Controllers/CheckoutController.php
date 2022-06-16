@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Product;
 use App\Traits\UsesStripe;
+use Inertia\Inertia;
 use Stripe\Checkout\Session;
 use Stripe\Exception\ApiErrorException;
 
@@ -17,24 +18,43 @@ class CheckoutController extends Controller
      */
     public function __invoke(CheckoutRequest $request)
     {
-        $products = $request->get('products');
+        $productQuantities = $request->get('products');
 
         $lineItems = [];
-        foreach($products as $productInfo) {
-            $product = Product::findOrFail($productInfo['id']);
 
+        $productIds = array_map(function ($product) {
+            return $product['id'];
+        }, $productQuantities);
+        $products = Product::whereIn('id', $productIds)->get();
+
+        foreach ($productQuantities as $productInfo) {
             $lineItems[] = [
-                'price'=> $product->stripe_price_id,
-                'quantity' => $productInfo['quantity']
+                'price'    => $products->where('id', $productInfo['id'])->first()->stripe_price_id,
+                'quantity' => $productInfo['quantity'],
             ];
         }
 
         $this->setupStripe();
-        Session::create([
-            'line_items' => $lineItems,
-            'mode' => 'payment',
-            'success_url' => route('home'),
-            'cancel_url' => route('home'),
+        $user = auth()->user();
+
+        $session = Session::create([
+            'customer_email'              => $user->email,
+            'line_items'                  => $lineItems,
+            'mode'                        => 'payment',
+            'success_url'                 => route('home'),
+            'cancel_url'                  => route('home'),
+            'billing_address_collection'  => 'required',
+            'shipping_address_collection' => [
+                'allowed_countries' => ['GB'],
+            ],
         ]);
+
+        $user->orders()->create([
+            'stripe_checkout_session_id' => $session->id,
+            'status' => 'awaiting_payment',
+            'total' => $session->amount_total / 100,
+        ]);
+
+        return Inertia::location($session->url);
     }
 }
