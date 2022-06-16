@@ -13,6 +13,12 @@ class Basket extends EventEmitter {
         return this._itemCount;
     }
 
+    get totalPrice() {
+        return Object.values(this.items).reduce((total, item) => (
+            total + item.product.price * item.quantity
+        ), 0);
+    }
+
     addItem(product) {
         if (this.items[product.id]) {
             this.setQuantity(product.id, this.items[product.id].quantity + 1);
