@@ -37,7 +37,9 @@ export default function Product({card}) {
                 </CardContent>
 
                 <CardActions sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <Button size="small">{price(card.price)}</Button>
+                    <Typography sx={{fontWeight: 600, fontSize: 15}}>
+                        {price(card.price)}
+                    </Typography>
                     {!!user && (
                         <Button size="small" onClick={() => Basket.addItem(card)}>
                             Add to cart
