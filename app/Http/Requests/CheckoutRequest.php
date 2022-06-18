@@ -25,7 +25,7 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'products' => 'required|array|min:1',
-            'products.*.id' => 'required|exists:products,id',
+            'products.*.id' => 'required|numeric|exists:products,id',
             'products.*.quantity' => 'required|numeric|max:99',
         ];
     }
