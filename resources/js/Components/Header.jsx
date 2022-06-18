@@ -42,7 +42,10 @@ export default function Header({ handleBasketToggle = () => {}, ...props }) {
         handleCloseUserMenu(null);
     }
 
+
     const user = usePage().props.auth.user;
+    
+    useBasket();
     const basketItemCount = basketService.itemCount;
 
     return (
