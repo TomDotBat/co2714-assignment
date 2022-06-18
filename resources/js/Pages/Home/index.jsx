@@ -35,7 +35,6 @@ export default function Home({products = {}}) {
                 >
                     <Container id="back-to-top-anchor" maxWidth="sm">
                         <Typography
-                            component="h1"
                             variant="h2"
                             align="center"
                             color="text.primary"
@@ -53,7 +52,7 @@ export default function Home({products = {}}) {
                                         textAlign: 'center',
                                         textTransform: 'capitalize'
                                     }}>
-                                        <Typography variant="h3">
+                                        <Typography variant="h4">
                                             {ProductCategories[category]}
                                         </Typography>
                                         <Divider sx={{mb: 1}}/>
