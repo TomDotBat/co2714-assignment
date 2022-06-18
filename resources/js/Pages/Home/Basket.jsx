@@ -32,7 +32,7 @@ export default function Basket(props) {
     const handleCheckout = () => {
         Inertia.post('/checkout', {
             products: basketKeys.map(key => ({
-                id: key,
+                id: parseInt(key),
                 quantity: basket[key].quantity
             })),
         });
