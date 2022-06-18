@@ -26,7 +26,7 @@ export default function Product({card}) {
                 />
 
                 <CardContent sx={{flexGrow: 1}}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h6" component="h2">
                         {card.title}
                     </Typography>
 
