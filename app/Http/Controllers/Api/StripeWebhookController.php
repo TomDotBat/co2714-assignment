@@ -45,7 +45,7 @@ class StripeWebhookController extends Controller
 
         if ($session->payment_status === 'paid') {
             Order::where('stripe_checkout_session_id', $sessionId)->update([
-                'status' => 'preparing_food',
+                'status' => 'PREPARING_FOOD',
             ]);
         }
     }
@@ -56,7 +56,7 @@ class StripeWebhookController extends Controller
         $sessionId = $session->id;
 
         Order::where('stripe_checkout_session_id', $sessionId)->update([
-            'status' => 'preparing_food',
+            'status' => 'PREPARING_FOOD',
         ]);
     }
 
@@ -66,7 +66,7 @@ class StripeWebhookController extends Controller
         $sessionId = $session->id;
 
         Order::where('stripe_checkout_session_id', $sessionId)->update([
-            'status' => 'payment_failed',
+            'status' => 'PAYMENT_FAILED',
         ]);
     }
 }

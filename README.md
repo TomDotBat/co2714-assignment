@@ -6,11 +6,14 @@ stripe listen --forward-to http://127.0.0.1:8000/api/stripe/webhook
 ```
 
 ## Order status
-### awaiting_payment
-waiting for stripe to say the orders was paid
+### AWAITING_PAYMENT
+Waiting for the user to pay with stripe.
 
-### preparing_food
-the order has been paid for but is not cooked yet
+### PREPARING_FOOD
+The payment has gone through and food preparation has begun.
+
+### PAYMENT_FAILED
+The order was not paid for successfully.
 
 ## Stripe test cards
 ### Success
