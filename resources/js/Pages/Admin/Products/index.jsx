@@ -58,13 +58,13 @@ export default function Products({products = {}}) {
                                             <TableCell>{product.id}</TableCell>
                                             <TableCell>{product.title}</TableCell>
                                             <TableCell>{product.description}</TableCell>
-                                                <TableCell>
-                                                    <Tooltip arrow placement="top" title={
-                                                        product.type.charAt(0).toUpperCase() + product.type.slice(1)
-                                                    }>
-                                                        {productTypeIcon(product)}
-                                                    </Tooltip>
-                                                </TableCell>
+                                            <TableCell>
+                                                <Tooltip arrow placement="top" title={
+                                                    product.type.charAt(0).toUpperCase() + product.type.slice(1)
+                                                }>
+                                                    {productTypeIcon(product)}
+                                                </Tooltip>
+                                            </TableCell>
                                             <TableCell align="right">{price(product.price)}</TableCell>
                                             <TableCell>
                                                 <Stack direction="row" spacing={{ sm: 1 }}>
