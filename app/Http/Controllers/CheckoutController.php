@@ -49,11 +49,24 @@ class CheckoutController extends Controller
             ],
         ]);
 
-        $user->orders()->create([
+        $order = $user->orders()->create([
             'stripe_checkout_session_id' => $session->id,
-            'status' => 'awaiting_payment',
+            'status' => 'AWAITING_PAYMENT',
             'total' => $session->amount_total / 100,
         ]);
+
+        $syncProducts = [];
+
+        $products->each(function ($product) use (&$syncProducts, $productQuantities) {
+            $syncProducts[$product->id] = [
+                'price' => $product->price,
+                'quantity' => array_values(array_filter($productQuantities, function ($productQuantity) use ($product) {
+                    return $productQuantity['id'] === $product->id;
+                }))[0]['quantity']
+            ];
+        });
+
+        $order->products()->sync($syncProducts);
 
         return Inertia::location($session->url);
     }
