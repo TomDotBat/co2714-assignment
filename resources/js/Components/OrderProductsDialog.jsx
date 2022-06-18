@@ -1,10 +1,4 @@
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
 import price from "../Services/price";
-import productTypeIcon from "../Services/productTypeIcon";
 import {
     Dialog,
     DialogActions,
@@ -12,10 +6,10 @@ import {
     DialogTitle,
     useMediaQuery, useTheme
 } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import shortUuid from "../Services/shortUuid";
 import Typography from "@mui/material/Typography";
+import OrderProductsTable from "./OrderProductsTable";
 
 export default function OrderProductsDialog({open, onClose, showId, order}) {
     if (!order) {
@@ -38,43 +32,7 @@ export default function OrderProductsDialog({open, onClose, showId, order}) {
             </DialogTitle>
 
             <DialogContent>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            {
-                                showId && (
-                                    <TableCell>#</TableCell>
-                                )
-                            }
-
-                            <TableCell>Name</TableCell>
-                            <TableCell>Type</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Quantity</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {order.products.map((product) => (
-                            <TableRow key={product.id}>
-                                {
-                                    showId && (
-                                        <TableCell>{product.id}</TableCell>
-                                    )
-                                }
-                                <TableCell>{product.title}</TableCell>
-                                <TableCell>
-                                    <Tooltip arrow placement="top" title={
-                                        product.type.charAt(0).toUpperCase() + product.type.slice(1)
-                                    }>
-                                        {productTypeIcon(product)}
-                                    </Tooltip>
-                                </TableCell>
-                                <TableCell align="right">{price(product.price)}</TableCell>
-                                <TableCell align="right">{product.pivot.quantity}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                <OrderProductsTable showId={showId} products={order.products}/>
 
                 <Typography textAlign="right" sx={{mt: 2, fontWeight: 600, fontSize: 18}}>
                     Total: {price(order.total)}

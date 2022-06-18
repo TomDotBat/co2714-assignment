@@ -37,11 +37,16 @@ class CheckoutController extends Controller
         $this->setupStripe();
         $user = auth()->user();
 
+        $order = $user->orders()->create([
+            'status' => 'AWAITING_PAYMENT',
+            'total' => -1,
+        ]);
+
         $session = Session::create([
             'customer_email'              => $user->email,
             'line_items'                  => $lineItems,
             'mode'                        => 'payment',
-            'success_url'                 => route('home'),
+            'success_url'                 => route('orders') . '?order_placed=' . $order->id,
             'cancel_url'                  => route('home'),
             'billing_address_collection'  => 'required',
             'shipping_address_collection' => [
@@ -49,9 +54,8 @@ class CheckoutController extends Controller
             ],
         ]);
 
-        $order = $user->orders()->create([
+        $order->update([
             'stripe_checkout_session_id' => $session->id,
-            'status' => 'AWAITING_PAYMENT',
             'total' => $session->amount_total / 100,
         ]);
 

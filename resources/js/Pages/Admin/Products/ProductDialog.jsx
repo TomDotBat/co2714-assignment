@@ -67,9 +67,8 @@ export default function ProductDialog(
                 clearValidationErrors();
                 onClose();
             }}
-            aria-labelledby="responsive-dialog-title"
         >
-            <DialogTitle id="responsive-dialog-title">
+            <DialogTitle>
                 {title}
             </DialogTitle>
 

@@ -1,8 +1,10 @@
 import { KeyboardArrowUp } from '@mui/icons-material';
-import { CssBaseline, Fab, Grid, Stack } from '@mui/material';
+import {
+    CssBaseline,
+    Fab,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,11 +16,27 @@ import { DateTime } from 'luxon';
 import Header from '../../Components/Header';
 import ScrollToTop from '../../Components/ScrollToTop';
 import price from '../../Services/price';
-import Product from '../Home/Product';
+import OrderStatus from "../../Services/OrderStatus";
+import OrderPlacedDialog from "./OrderPlacedDialog";
+import shortUuid from "../../Services/shortUuid";
+import {usePage} from "@inertiajs/inertia-react";
+import {Inertia} from "@inertiajs/inertia";
 
 const theme = createTheme();
 
 export default function Orders({orders = {}}) {
+    let placedOrder;
+
+    const queryParameters = usePage().url.split('?')[1];
+    if (queryParameters) {
+        const placedOrderId = new URLSearchParams(queryParameters).get("order_placed");
+        if (placedOrderId) {
+            placedOrder = orders.find((order) => {
+                return order.id === placedOrderId;
+            });
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
@@ -45,23 +63,23 @@ export default function Orders({orders = {}}) {
                             Your Orders
                         </Typography>
                     </Container>
-                    
+
                     <Container maxWidth="lg">
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>#</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Total</TableCell>
+                                    <TableCell>Reference</TableCell>
+                                    <TableCell>Status</TableCell>
+                                    <TableCell align="right">Total</TableCell>
                                     <TableCell>Date</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {orders.map((order) => (
                                     <TableRow key={order.id}>
-                                        <TableCell>{order.id}</TableCell>
-                                        <TableCell>{order.status}</TableCell>
-                                        <TableCell>{price(order.total)}</TableCell>
+                                        <TableCell>{shortUuid(order.id)}</TableCell>
+                                        <TableCell>{OrderStatus[order.status] ?? "Unknown"}</TableCell>
+                                        <TableCell align="right">{price(order.total)}</TableCell>
                                         <TableCell>{DateTime.fromISO(order.created_at).toLocaleString(DateTime.DATETIME_MED)}</TableCell>
                                     </TableRow>
                                 ))}
@@ -75,6 +93,15 @@ export default function Orders({orders = {}}) {
                         <KeyboardArrowUp/>
                     </Fab>
                 </ScrollToTop>
+
+                {
+                    placedOrder && (
+                        <OrderPlacedDialog
+                            order={placedOrder}
+                            onClose={() => Inertia.visit('/orders')}
+                        />
+                    )
+                }
             </main>
         </ThemeProvider>
     );
