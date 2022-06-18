@@ -69,8 +69,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 export default function Dashboard(props) {
-    const [open, setOpen] = React.useState(true);
+    const drawerPreference = localStorage.getItem('dashboardDrawerOpen');
+
+    const [open, setOpen] = React.useState(drawerPreference === null ? true : drawerPreference === 'true');
+
     const toggleDrawer = () => {
+        localStorage.setItem('dashboardDrawerOpen', open ? 'false' : 'true');
         setOpen(!open);
     };
 
