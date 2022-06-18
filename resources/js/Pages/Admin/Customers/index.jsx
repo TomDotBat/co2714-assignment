@@ -56,11 +56,19 @@ export default function Customers({customers = {}}) {
                                             </TableCell>
                                             <TableCell>{customer.email}</TableCell>
                                             <TableCell align="center">
-                                                <Tooltip arrow placement="top" title="Delete">
-                                                    <IconButton onClick={() => setDeleteConfirmationCustomer(customer)} disabled={customer.id === currentUserId}>
-                                                        <Delete/>
-                                                    </IconButton>
-                                                </Tooltip>
+                                                {
+                                                    customer.id === currentUserId ? (
+                                                        <IconButton disabled>
+                                                            <Delete/>
+                                                        </IconButton>
+                                                    ) : (
+                                                        <Tooltip arrow placement="top" title="Delete">
+                                                            <IconButton onClick={() => setDeleteConfirmationCustomer(customer)}>
+                                                                <Delete/>
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    )
+                                                }
                                             </TableCell>
                                         </TableRow>
                                     ))}
