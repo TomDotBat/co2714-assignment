@@ -9,15 +9,10 @@ import Product from "./Product";
 import Basket from "./Basket";
 import ScrollToTop from "../../Components/ScrollToTop";
 import {KeyboardArrowUp} from "@mui/icons-material";
+import ProductCategories from "../../Services/ProductCategories";
+import Divider from "@mui/material/Divider";
 
 const theme = createTheme();
-
-const categories = [
-    'pizza',
-    'side',
-    'dessert',
-    'drink',
-];
 
 export default function Home({products = {}}) {
     const [userBasketVisibility, setUserBasketVisibility] = React.useState(true);
@@ -52,15 +47,16 @@ export default function Home({products = {}}) {
 
                     <Container maxWidth="lg">
                         <Stack spacing={8}>
-                            {categories.map(category => (
+                            {Object.keys(ProductCategories).map(category => (
                                 <Box key={category}>
                                     <Box sx={{
                                         textAlign: 'center',
                                         textTransform: 'capitalize'
                                     }}>
-                                        <Typography gutterBottom variant="h5" component="h1">
-                                            {category}
+                                        <Typography variant="h3">
+                                            {ProductCategories[category]}
                                         </Typography>
+                                        <Divider sx={{mb: 1}}/>
                                     </Box>
                                     <Grid container spacing={4}>
                                         {products[category]?.map((card) => (
