@@ -12,6 +12,15 @@ Waiting for the user to pay with stripe.
 ### PREPARING_FOOD
 The payment has gone through and food preparation has begun.
 
+### BAKING
+The pizza is currently being baked.
+
+### DELIVERY
+The order is out for delivery.
+
+### DELIVERED
+The order has been delivered to the customer.
+
 ### PAYMENT_FAILED
 The order was not paid for successfully.
 

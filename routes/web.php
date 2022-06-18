@@ -57,8 +57,8 @@ Route::middleware('auth')->group(function () {
             ->only('index', 'destroy')
             ->name('index', 'admin.customers');
         Route::resource('/admin/orders', OrderController::class)
-            ->only('index')
-            ->name('index', 'orders');
+            ->only('index', 'update', 'destroy')
+            ->name('index', 'admin.orders');
         Route::resource('/admin/products', ProductController::class)
             ->only('index', 'store', 'update', 'destroy')
             ->name('index', 'admin.products');
