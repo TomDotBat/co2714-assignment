@@ -21,6 +21,7 @@ export default function Home({products = {}}) {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Header
+                menuLinks
                 position="fixed"
                 sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
                 handleBasketToggle={() => setUserBasketVisibility(!userBasketVisibility)}
@@ -47,7 +48,7 @@ export default function Home({products = {}}) {
                     <Container maxWidth="lg">
                         <Stack spacing={8}>
                             {Object.keys(ProductCategories).map(category => (
-                                <Box key={category}>
+                                <Box key={category} id={category}>
                                     <Box sx={{
                                         textAlign: 'center',
                                         textTransform: 'capitalize'

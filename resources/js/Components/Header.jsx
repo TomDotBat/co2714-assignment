@@ -15,8 +15,9 @@ import {InertiaLink, usePage} from '@inertiajs/inertia-react';
 import {Inertia} from "@inertiajs/inertia";
 import {ShoppingBasket} from "@mui/icons-material";
 import basketService, {useBasket} from "../Services/Basket";
+import ProductCategories from "../Services/ProductCategories";
 
-export default function Header({ handleBasketToggle = () => {}, ...props }) {
+export default function Header({ menuLinks, handleBasketToggle = () => {}, ...props }) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -42,9 +43,24 @@ export default function Header({ handleBasketToggle = () => {}, ...props }) {
         handleCloseUserMenu(null);
     }
 
+    const scrollTo = (id) => {
+        const anchor = document.querySelector(
+            '#' + id,
+        );
+
+        if (anchor) {
+            anchor.scrollIntoView({
+                block: 'nearest',
+            });
+        }
+    }
+
+    const handleOpenMenu = () => {
+        Inertia.visit("/");
+    }
 
     const user = usePage().props.auth.user;
-    
+
     useBasket();
     const basketItemCount = basketService.itemCount;
 
@@ -87,13 +103,37 @@ export default function Header({ handleBasketToggle = () => {}, ...props }) {
                     >
                         {process.env.MIX_APP_NAME}
                     </Typography>
+
+                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        {
+                            menuLinks ? Object.keys(ProductCategories).map((categoryKey) => (
+                                <Button
+                                    key={categoryKey}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    onClick={() => scrollTo(categoryKey)}
+                                >
+                                    {ProductCategories[categoryKey]}
+                                </Button>
+                            )) : (
+                                <Button
+                                    key='menu'
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    onClick={handleOpenMenu}
+                                >
+                                    Menu
+                                </Button>
+                            )
+                        }
+
+                    </Box>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}/>
                     {
                         user ? (
                             <Box sx={{ flexGrow: 0 }}>
                                 <Stack direction="row" spacing={2}>
                                     {
-                                        basketItemCount !== 0 ? (
+                                        basketItemCount !== 0 && (
                                             <Tooltip title="Basket">
                                                 <IconButton color="inherit" onClick={handleBasketToggle} sx={{ p: 0 }}>
                                                     <Badge badgeContent={basketItemCount} color="secondary">
@@ -101,7 +141,7 @@ export default function Header({ handleBasketToggle = () => {}, ...props }) {
                                                     </Badge>
                                                 </IconButton>
                                             </Tooltip>
-                                        ) : null
+                                        )
                                     }
 
                                     <Tooltip title="Profile">
