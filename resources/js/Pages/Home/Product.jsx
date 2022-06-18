@@ -30,9 +30,13 @@ export default function Product({card}) {
                         {card.title}
                     </Typography>
 
-                    <Typography>
-                        {card.description}
-                    </Typography>
+                    {
+                        card.description && (
+                            <Typography>
+                                {card.description}
+                            </Typography>
+                        )
+                    }
                 </CardContent>
 
                 <CardActions sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>

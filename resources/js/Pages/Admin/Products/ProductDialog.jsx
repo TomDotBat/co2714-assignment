@@ -95,7 +95,6 @@ export default function ProductDialog(
                     />
 
                     <TextField
-                        required
                         multiline
                         variant="standard"
                         name="description"

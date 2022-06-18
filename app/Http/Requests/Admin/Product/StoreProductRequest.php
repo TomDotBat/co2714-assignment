@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
             'type' => 'required|in:pizza,side,dessert,drink',
             'price' => 'required|numeric',
             'image' => 'nullable|image|max:5000', // must be a image less than 5mb
