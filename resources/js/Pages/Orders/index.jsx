@@ -21,10 +21,15 @@ import OrderPlacedDialog from "./OrderPlacedDialog";
 import shortUuid from "../../Services/shortUuid";
 import {usePage} from "@inertiajs/inertia-react";
 import {Inertia} from "@inertiajs/inertia";
+import Button from "@mui/material/Button";
+import OrderProductsDialog from "../../Components/OrderProductsDialog";
+import {useState} from "react";
 
 const theme = createTheme();
 
 export default function Orders({orders = {}}) {
+    const [viewProductsOrder, setViewProductsOrder] = useState(null);
+
     let placedOrder;
 
     const queryParameters = usePage().url.split('?')[1];
@@ -72,6 +77,7 @@ export default function Orders({orders = {}}) {
                                     <TableCell>Status</TableCell>
                                     <TableCell align="right">Total</TableCell>
                                     <TableCell>Date</TableCell>
+                                    <TableCell>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -81,6 +87,11 @@ export default function Orders({orders = {}}) {
                                         <TableCell>{OrderStatus[order.status] ?? "Unknown"}</TableCell>
                                         <TableCell align="right">{price(order.total)}</TableCell>
                                         <TableCell>{DateTime.fromISO(order.created_at).toLocaleString(DateTime.DATETIME_MED)}</TableCell>
+                                        <TableCell>
+                                            <Button size="small" onClick={() => setViewProductsOrder(order)}>
+                                                View Products
+                                            </Button>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -93,6 +104,12 @@ export default function Orders({orders = {}}) {
                         <KeyboardArrowUp/>
                     </Fab>
                 </ScrollToTop>
+
+                <OrderProductsDialog
+                    open={viewProductsOrder != null}
+                    order={viewProductsOrder}
+                    onClose={() => setViewProductsOrder(null)}
+                />
 
                 {
                     placedOrder && (
