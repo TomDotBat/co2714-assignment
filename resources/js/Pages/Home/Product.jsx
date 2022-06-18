@@ -18,8 +18,7 @@ export default function Product({card}) {
                 <CardMedia
                     ref={img}
                     component="img"
-                    // image={`/storage/products/${card.id}`}
-                    image={'/images/fallback.svg'}
+                    image={`/storage/products/${card.id}`}
                     alt=""
                     onError={() => {
                         img.current.src = '/images/fallback.svg';
