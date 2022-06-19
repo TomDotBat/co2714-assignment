@@ -14,6 +14,12 @@
 
         <script src="{{ mix("js/app.js") }}" defer></script>
 
+        <style>
+            #nprogress .bar {
+                z-index: 2000 !important;
+            }
+        </style>
+
         @inertiaHead
     </head>
     <body>
