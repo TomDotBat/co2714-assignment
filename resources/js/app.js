@@ -4,7 +4,7 @@ import { createInertiaApp } from "@inertiajs/inertia-react"
 import { InertiaProgress } from '@inertiajs/progress'
 
 InertiaProgress.init({
-    color: '#818181'
+    color: '#ffffff'
 });
 
 createInertiaApp({
