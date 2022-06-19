@@ -23,10 +23,12 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
+        $types = array_keys(config("product-types"));
+
         return [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'type' => 'required|in:pizza,side,dessert,drink',
+            'type' => 'required|in:' . implode(',', $types),
             'price' => 'required|numeric',
             'image' => 'nullable|image|max:5000', // must be a image less than 5mb
         ];
