@@ -13,7 +13,7 @@ class UserOrderController extends Controller
      */
     public function __invoke()
     {
-        $orders = auth()->user()->orders()->with("products")->get();
+        $orders = auth()->user()->orders()->with("products")->orderBy('created_at', 'desc')->get();
 
         return inertia('Orders', [
             'orders' => $orders,

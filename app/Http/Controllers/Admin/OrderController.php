@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(["products", "user"])->get();
+        $orders = Order::with(['products', 'user'])->orderBy('created_at', 'desc')->get();
 
         return inertia('Admin/Orders', [
             'orders' => $orders
