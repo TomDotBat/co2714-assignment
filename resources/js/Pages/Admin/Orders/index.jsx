@@ -62,8 +62,8 @@ export default function Orders({orders = {}}) {
                                             <TableCell>{OrderStatus[order.status] ?? "Unknown"}</TableCell>
                                             <TableCell align="right">{price(order.total)}</TableCell>
                                             <TableCell>{DateTime.fromISO(order.created_at).toLocaleString(DateTime.DATETIME_MED)}</TableCell>
-                                            <TableCell align="center">
-                                                <Stack direction="row" spacing={{ sm: 1 }}>
+                                            <TableCell>
+                                                <Stack direction="row" spacing={{ sm: 1 }} sx={{justifyContent: 'space-evenly'}}>
                                                     <Tooltip arrow placement="top" title="View Products">
                                                         <IconButton onClick={() => setViewProductsOrder(order)}>
                                                             <Search/>

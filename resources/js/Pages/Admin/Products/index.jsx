@@ -67,7 +67,7 @@ export default function Products({products = {}}) {
                                             </TableCell>
                                             <TableCell align="right">{price(product.price)}</TableCell>
                                             <TableCell>
-                                                <Stack direction="row" spacing={{ sm: 1 }}>
+                                                <Stack direction="row" spacing={{ sm: 1 }} sx={{justifyContent: 'space-evenly'}}>
                                                     <Tooltip arrow placement="top" title="Edit">
                                                         <IconButton onClick={() => setUpdatingProduct(product)}>
                                                             <Edit/>
